@@ -23,6 +23,9 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/dashboard/billing" element={<Billing />} />
+          <Route path="/dashboard/settings" element={<Settings />} />
+          <Route path="/dashboard/docs" element={<Docs />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
