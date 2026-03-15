@@ -5,19 +5,19 @@ const testimonials = [
     name: "Arjun Mehta",
     role: "Founder, PayTrack",
     quote: "LaunchKit saved me 3 weeks of setup. Razorpay integration worked out of the box.",
-    avatar: "AM",
+    avatar: "https://i.pravatar.cc/150?img=11",
   },
   {
     name: "Priya Sharma",
     role: "Full-stack Developer",
     quote: "Finally an open-source boilerplate that doesn't feel half-baked. The AI modules are incredible.",
-    avatar: "PS",
+    avatar: "https://i.pravatar.cc/150?img=32",
   },
   {
     name: "Vikram Rao",
     role: "CTO, NeoStack",
     quote: "We moved our entire starter template to LaunchKit. The DX is on par with Vercel's own tools.",
-    avatar: "VR",
+    avatar: "https://i.pravatar.cc/150?img=53",
   },
 ];
 
@@ -39,9 +39,7 @@ const Testimonials = () => {
               <span className="text-4xl leading-none text-primary/60">"</span>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t.quote}</p>
               <div className="mt-6 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary">
-                  {t.avatar}
-                </div>
+                <img src={t.avatar} alt={t.name} className="h-10 w-10 rounded-full object-cover" />
                 <div>
                   <p className="text-sm font-medium">{t.name}</p>
                   <p className="text-xs text-muted-foreground">{t.role}</p>

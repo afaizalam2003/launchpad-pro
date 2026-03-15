@@ -44,8 +44,9 @@ const Hero = () => {
 
             <h1 className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl md:text-6xl">
               Ship your SaaS in days.
-              <br />
-              <span className="text-primary">Not months.</span>
+            </h1>
+            <h1 className="text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl md:text-6xl text-primary">
+              Not months.
             </h1>
 
             <p className="mt-5 max-w-xl text-lg text-muted-foreground">
