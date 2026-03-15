@@ -76,9 +76,9 @@ const Hero = () => {
             <div className="rounded-xl border border-border bg-card p-1 shadow-2xl shadow-primary/5">
               {/* Title bar */}
               <div className="flex items-center gap-1.5 rounded-t-lg bg-secondary/50 px-4 py-2.5">
-                <span className="h-2.5 w-2.5 rounded-full bg-red-500/70" />
-                <span className="h-2.5 w-2.5 rounded-full bg-yellow-500/70" />
-                <span className="h-2.5 w-2.5 rounded-full bg-green-500/70" />
+                <span className="h-2.5 w-2.5 rounded-full bg-destructive/70" />
+                <span className="h-2.5 w-2.5 rounded-full bg-[hsl(45_93%_47%/0.7)]" />
+                <span className="h-2.5 w-2.5 rounded-full bg-primary/70" />
                 <span className="ml-3 text-xs text-muted-foreground font-mono">launchkit.config.ts</span>
               </div>
               {/* Code */}
