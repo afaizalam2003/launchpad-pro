@@ -5,19 +5,19 @@ const testimonials = [
     name: "Arjun Mehta",
     role: "Founder, PayTrack",
     quote: "LaunchKit saved me 3 weeks of setup. Razorpay integration worked out of the box.",
-    avatar: "AM",
+    avatar: "https://i.pravatar.cc/150?img=11",
   },
   {
     name: "Priya Sharma",
     role: "Full-stack Developer",
     quote: "Finally an open-source boilerplate that doesn't feel half-baked. The AI modules are incredible.",
-    avatar: "PS",
+    avatar: "https://i.pravatar.cc/150?img=32",
   },
   {
     name: "Vikram Rao",
     role: "CTO, NeoStack",
     quote: "We moved our entire starter template to LaunchKit. The DX is on par with Vercel's own tools.",
-    avatar: "VR",
+    avatar: "https://i.pravatar.cc/150?img=53",
   },
 ];
 
