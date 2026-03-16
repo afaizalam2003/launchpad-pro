@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { Github } from "lucide-react";
@@ -15,6 +16,7 @@ const codeLines = [
 ];
 
 const Hero = () => {
+  const navigate = useNavigate();
   const { ref, isVisible } = useScrollAnimation(0.1);
 
   return (
@@ -55,13 +57,18 @@ const Hero = () => {
 
             {/* CTAs */}
             <div className="mt-8 flex flex-wrap gap-3">
-              <Button size="lg" className="font-semibold text-base px-8">
+              <Button size="lg" className="font-semibold text-base px-8" onClick={() => navigate("/signup")}>
                 Get Started Free
               </Button>
-              <Button size="lg" variant="outline" className="gap-2 text-base font-semibold border-border text-foreground hover:bg-card">
+              <a
+                href="https://github.com/afaizalam2003/launchpad-pro"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex h-11 items-center justify-center gap-2 rounded-md border border-border px-8 text-base font-semibold text-foreground transition-colors hover:bg-card"
+              >
                 <Github className="h-4 w-4" />
                 View on GitHub
-              </Button>
+              </a>
             </div>
 
             {/* Social proof */}

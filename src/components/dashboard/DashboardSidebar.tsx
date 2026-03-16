@@ -1,6 +1,7 @@
 import { LayoutDashboard, CreditCard, Settings, BookOpen, LogOut } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useNavigate } from "react-router-dom";
+import { supabase } from "@/lib/supabase";
 
 const navItems = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
@@ -41,7 +42,10 @@ const DashboardSidebar = () => {
       {/* Logout */}
       <div className="border-t border-border px-3 py-4">
         <button
-          onClick={() => navigate("/login")}
+          onClick={async () => {
+            await supabase.auth.signOut();
+            navigate("/login");
+          }}
           className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive"
         >
           <LogOut className="h-4 w-4" />

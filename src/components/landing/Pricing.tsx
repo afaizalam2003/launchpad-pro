@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
@@ -30,6 +31,7 @@ const plans = [
 ];
 
 const Pricing = () => {
+  const navigate = useNavigate();
   const { ref, isVisible } = useScrollAnimation();
 
   return (
@@ -68,6 +70,7 @@ const Pricing = () => {
               </ul>
               <Button
                 className={`mt-8 w-full font-semibold ${!p.highlight ? "bg-secondary text-secondary-foreground hover:bg-secondary/80" : ""}`}
+                onClick={() => (p.cta === "Get Started" || p.cta === "Get Pro") && navigate("/signup")}
               >
                 {p.cta}
               </Button>

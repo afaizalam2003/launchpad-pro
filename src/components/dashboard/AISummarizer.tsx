@@ -1,21 +1,42 @@
 import { useState } from "react";
 import { Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import groq from "@/lib/openai";
 
 const AISummarizer = () => {
   const [input, setInput] = useState("");
   const [result, setResult] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSummarize = () => {
-    if (!input.trim()) return;
+  const handleSummarize = async () => {
+    if (!input.trim()) {
+      setError("Please enter some text");
+      return;
+    }
+    setError(null);
+    setResult("");
     setLoading(true);
-    setTimeout(() => {
-      setResult(
-        "This text discusses the key benefits of using LaunchKit as a SaaS boilerplate, highlighting its pre-built authentication, Razorpay integration, and AI-ready modules that reduce development time from months to days."
-      );
+    try {
+      const completion = await groq.chat.completions.create({
+        model: "llama-3.3-70b-versatile",
+        messages: [
+          {
+            role: "system",
+            content:
+              "You are a helpful assistant. Summarize the given text in 3-5 concise bullet points.",
+          },
+          { role: "user", content: input },
+        ],
+        max_tokens: 500,
+      });
+      const summary = completion.choices[0]?.message?.content ?? "";
+      setResult(summary);
+    } catch {
+      setError("Something went wrong. Try again.");
+    } finally {
       setLoading(false);
-    }, 1500);
+    }
   };
 
   return (
@@ -26,14 +47,18 @@ const AISummarizer = () => {
       </div>
       <textarea
         value={input}
-        onChange={(e) => setInput(e.target.value)}
+        onChange={(e) => {
+          setInput(e.target.value);
+          setError(null);
+        }}
         placeholder="Paste your text here to summarize..."
         className="w-full rounded-lg border border-border bg-background p-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-1 focus:ring-primary resize-none font-['JetBrains_Mono']"
         rows={4}
       />
+      {error && <p className="mt-2 text-sm text-red-500">{error}</p>}
       <Button
         onClick={handleSummarize}
-        disabled={loading || !input.trim()}
+        disabled={loading}
         className="mt-3 gap-2 font-semibold"
       >
         <Sparkles className="h-4 w-4" />
