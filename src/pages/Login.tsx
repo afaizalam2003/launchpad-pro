@@ -20,6 +20,11 @@ const Login = () => {
       if (signInError) throw signInError;
       navigate("/dashboard");
     } catch (err) {
+      await supabase.from("activity_logs").insert({
+        event: "Failed login attempt",
+        user_email: email || null,
+        status: "error",
+      });
       setError(err instanceof Error ? err.message : "Failed to sign in");
     } finally {
       setLoading(false);

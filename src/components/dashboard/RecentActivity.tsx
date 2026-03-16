@@ -1,18 +1,20 @@
-const activities = [
-  { id: 1, event: "New user signup", user: "priya@example.com", time: "2 min ago", status: "Success" },
-  { id: 2, event: "Payment received", user: "arjun@paytrack.io", time: "15 min ago", status: "Success" },
-  { id: 3, event: "API rate limit hit", user: "bot@scraper.com", time: "1 hr ago", status: "Warning" },
-  { id: 4, event: "Deployment complete", user: "system", time: "3 hrs ago", status: "Success" },
-  { id: 5, event: "Failed login attempt", user: "unknown@test.com", time: "5 hrs ago", status: "Error" },
-];
+import { useRecentActivity, formatTimeAgo } from "@/hooks/useRecentActivity";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const statusColor: Record<string, string> = {
-  Success: "text-primary bg-primary/10",
-  Warning: "text-yellow-500 bg-yellow-500/10",
-  Error: "text-destructive bg-destructive/10",
+  success: "text-primary bg-primary/10",
+  warning: "text-yellow-500 bg-yellow-500/10",
+  error: "text-destructive bg-destructive/10",
 };
 
 const RecentActivity = () => {
+  const { activities, loading, error } = useRecentActivity();
+
+  const getStatusClass = (status: string): string => {
+    const key = (status ?? "success").toLowerCase();
+    return statusColor[key] ?? statusColor.success;
+  };
+
   return (
     <div className="rounded-xl border border-border bg-card">
       <div className="border-b border-border px-5 py-4">
@@ -29,18 +31,58 @@ const RecentActivity = () => {
             </tr>
           </thead>
           <tbody>
-            {activities.map((a) => (
-              <tr key={a.id} className="border-b border-border/50 last:border-0 transition-colors hover:bg-secondary/30">
-                <td className="px-5 py-3 font-medium">{a.event}</td>
-                <td className="px-5 py-3 font-mono text-xs text-muted-foreground">{a.user}</td>
-                <td className="px-5 py-3 text-muted-foreground">{a.time}</td>
-                <td className="px-5 py-3">
-                  <span className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-medium ${statusColor[a.status]}`}>
-                    {a.status}
-                  </span>
+            {loading ? (
+              Array.from({ length: 5 }).map((_, i) => (
+                <tr key={i} className="border-b border-border/50 last:border-0">
+                  <td className="px-5 py-3">
+                    <Skeleton className="h-4 w-28" />
+                  </td>
+                  <td className="px-5 py-3">
+                    <Skeleton className="h-4 w-24" />
+                  </td>
+                  <td className="px-5 py-3">
+                    <Skeleton className="h-4 w-16" />
+                  </td>
+                  <td className="px-5 py-3">
+                    <Skeleton className="h-5 w-14 rounded-full" />
+                  </td>
+                </tr>
+              ))
+            ) : error ? (
+              <tr>
+                <td colSpan={4} className="px-5 py-6 text-center text-sm text-muted-foreground">
+                  —
                 </td>
               </tr>
-            ))}
+            ) : activities.length === 0 ? (
+              <tr>
+                <td colSpan={4} className="px-5 py-6 text-center text-sm text-muted-foreground">
+                  No activity yet
+                </td>
+              </tr>
+            ) : (
+              activities.map((a) => (
+                <tr
+                  key={a.id}
+                  className="border-b border-border/50 last:border-0 transition-colors hover:bg-secondary/30"
+                >
+                  <td className="px-5 py-3 font-medium">{a.event}</td>
+                  <td className="px-5 py-3 font-mono text-xs text-muted-foreground">
+                    {a.user_email ?? "—"}
+                  </td>
+                  <td className="px-5 py-3 text-muted-foreground">
+                    {formatTimeAgo(a.created_at)}
+                  </td>
+                  <td className="px-5 py-3">
+                    <span
+                      className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-medium capitalize ${getStatusClass(a.status)}`}
+                    >
+                      {a.status}
+                    </span>
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
       </div>

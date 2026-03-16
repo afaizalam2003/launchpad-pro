@@ -1,38 +1,59 @@
 import { useNavigate } from "react-router-dom";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { Button } from "@/components/ui/button";
-import { Check } from "lucide-react";
+import { Check, Loader2 } from "lucide-react";
+import { useAuth } from "@/hooks/useAuth";
+import { usePayment } from "@/hooks/usePayment";
 
 const plans = [
   {
     name: "Free",
-    price: "$0",
+    price: "₹0",
     period: "forever",
     features: ["Auth + Database", "1 project", "Community support", "MIT License"],
     cta: "Get Started",
     highlight: false,
+    action: "signup",
   },
   {
     name: "Pro",
-    price: "$29",
+    price: "₹999",
     period: "/mo",
     features: ["Everything in Free", "Unlimited projects", "Razorpay + Stripe", "AI modules", "Priority support"],
     cta: "Get Pro",
     highlight: true,
+    action: "pro",
   },
   {
     name: "Enterprise",
-    price: "$99",
+    price: "₹4,999",
     period: "/mo",
     features: ["Everything in Pro", "Custom integrations", "SLA guarantee", "Dedicated support", "Team management"],
     cta: "Contact Sales",
     highlight: false,
+    action: "enterprise",
   },
 ];
 
 const Pricing = () => {
   const navigate = useNavigate();
   const { ref, isVisible } = useScrollAnimation();
+  const { user } = useAuth();
+  const { initiateProPayment, loading } = usePayment();
+
+  const handleCta = (action: string) => {
+    if (action === "signup") {
+      navigate("/signup");
+    } else if (action === "pro") {
+      if (user) {
+        void initiateProPayment();
+      } else {
+        navigate("/signup");
+      }
+    } else if (action === "enterprise") {
+      window.location.href = "mailto:mdfaizalam697@gmail.com";
+    }
+  };
 
   return (
     <section id="pricing" ref={ref} className="py-24 md:py-32">
@@ -70,9 +91,17 @@ const Pricing = () => {
               </ul>
               <Button
                 className={`mt-8 w-full font-semibold ${!p.highlight ? "bg-secondary text-secondary-foreground hover:bg-secondary/80" : ""}`}
-                onClick={() => (p.cta === "Get Started" || p.cta === "Get Pro") && navigate("/signup")}
+                onClick={() => handleCta(p.action)}
+                disabled={p.action === "pro" && loading}
               >
-                {p.cta}
+                {p.action === "pro" && loading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Processing...
+                  </>
+                ) : (
+                  p.cta
+                )}
               </Button>
             </div>
           ))}

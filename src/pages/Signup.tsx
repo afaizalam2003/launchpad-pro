@@ -23,6 +23,11 @@ const Signup = () => {
         options: { data: { full_name: name } },
       });
       if (signUpError) throw signUpError;
+      await supabase.from("activity_logs").insert({
+        event: "New user signup",
+        user_email: email,
+        status: "success",
+      });
       navigate("/dashboard");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to create account");
