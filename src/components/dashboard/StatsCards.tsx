@@ -1,4 +1,4 @@
-import { Users, DollarSign, Zap, Crown, TrendingUp, TrendingDown } from "lucide-react";
+import { Users, DollarSign, Zap, Crown, LayoutTemplate, TrendingUp, TrendingDown, Minus } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useUserProfile } from "@/hooks/useUserProfile";
 import { useDashboardStats } from "@/hooks/useDashboardStats";
@@ -7,7 +7,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 const StatsCards = () => {
   const { user } = useAuth();
   const { profile, loading: profileLoading } = useUserProfile(user?.id);
-  const { activeUsers, mrr, apiCalls, loading: statsLoading } = useDashboardStats();
+  const { activeUsers, mrr, apiCalls, templateDeploys, loading: statsLoading } = useDashboardStats();
 
   const plan = (profile?.plan ?? "free").toLowerCase();
   const isProOrEnterprise = plan === "pro" || plan === "enterprise";
@@ -57,10 +57,17 @@ const StatsCards = () => {
       up: isProOrEnterprise,
       icon: Crown,
     },
+    {
+      label: "Templates Used",
+      value: isLoading ? null : (templateDeploys ?? 0).toLocaleString("en-IN"),
+      trend: (templateDeploys ?? 0) > 0 ? "deployed" : "—",
+      up: (templateDeploys ?? 0) > 0,
+      icon: LayoutTemplate,
+    },
   ];
 
   return (
-    <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+    <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
       {cards.map((s) => (
         <div
           key={s.label}
@@ -76,7 +83,9 @@ const StatsCards = () => {
             <p className="mt-2 text-2xl font-bold font-['DM_Sans']">{s.value}</p>
           )}
           <div className="mt-1 flex items-center gap-1">
-            {s.up ? (
+            {s.label === "Templates Used" && s.trend === "—" ? (
+              <Minus className="h-3 w-3 text-muted-foreground" />
+            ) : s.up ? (
               <TrendingUp className="h-3 w-3 text-primary" />
             ) : (
               <TrendingDown className="h-3 w-3 text-destructive" />
@@ -87,9 +96,11 @@ const StatsCards = () => {
                   ? isProOrEnterprise
                     ? "text-primary"
                     : "text-muted-foreground"
-                  : s.up
-                    ? "text-primary"
-                    : "text-destructive"
+                  : s.label === "Templates Used" && s.trend === "—"
+                    ? "text-muted-foreground"
+                    : s.up
+                      ? "text-primary"
+                      : "text-destructive"
               }`}
             >
               {s.trend}

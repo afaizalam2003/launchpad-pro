@@ -1,10 +1,11 @@
-import { LayoutDashboard, CreditCard, Settings, BookOpen, LogOut } from "lucide-react";
+import { LayoutDashboard, CreditCard, Settings, BookOpen, LayoutTemplate, LogOut } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/lib/supabase";
 
 const navItems = [
   { title: "Dashboard", url: "/dashboard", icon: LayoutDashboard },
+  { title: "Templates", url: "/dashboard/templates", icon: LayoutTemplate },
   { title: "Billing", url: "/dashboard/billing", icon: CreditCard },
   { title: "Settings", url: "/dashboard/settings", icon: Settings },
   { title: "Docs", url: "/dashboard/docs", icon: BookOpen },

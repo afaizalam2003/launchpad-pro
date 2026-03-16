@@ -47,12 +47,18 @@ const Signup = () => {
           <span className="h-2 w-2 rounded-full bg-primary" />
         </div>
 
-        <h2 className="text-center text-xl font-semibold font-['DM_Sans']">Create your account</h2>
-        <p className="mt-1 text-center text-sm text-muted-foreground">Start shipping faster today</p>
+        <h2 className="text-center text-xl font-semibold font-['DM_Sans']">
+          Create your account
+        </h2>
+        <p className="mt-1 text-center text-sm text-muted-foreground">
+          Start shipping faster today
+        </p>
 
         <form className="mt-6 space-y-4" onSubmit={handleSubmit}>
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-foreground">Name</label>
+            <label className="mb-1.5 block text-sm font-medium text-foreground">
+              Name
+            </label>
             <input
               type="text"
               placeholder="Faiz Khan"
@@ -63,7 +69,9 @@ const Signup = () => {
             />
           </div>
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-foreground">Email</label>
+            <label className="mb-1.5 block text-sm font-medium text-foreground">
+              Email
+            </label>
             <input
               type="email"
               placeholder="you@example.com"
@@ -75,7 +83,9 @@ const Signup = () => {
             />
           </div>
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-foreground">Password</label>
+            <label className="mb-1.5 block text-sm font-medium text-foreground">
+              Password
+            </label>
             <input
               type="password"
               placeholder="••••••••"
@@ -87,7 +97,11 @@ const Signup = () => {
             />
           </div>
           {error && <p className="text-sm text-red-500">{error}</p>}
-          <Button type="submit" disabled={loading} className="w-full font-semibold text-base">
+          <Button
+            type="submit"
+            disabled={loading}
+            className="w-full font-semibold text-base"
+          >
             {loading ? "Creating account..." : "Create Account"}
           </Button>
         </form>
@@ -98,14 +112,20 @@ const Signup = () => {
           <div className="h-px flex-1 bg-border" />
         </div>
 
-        <Button variant="outline" className="w-full gap-2 border-border text-foreground hover:bg-secondary">
+        <Button
+          variant="outline"
+          className="w-full gap-2 border-border text-foreground hover:bg-secondary"
+        >
           <Mail className="h-4 w-4" />
           Continue with Google
         </Button>
 
         <p className="mt-6 text-center text-sm text-muted-foreground">
           Already have an account?{" "}
-          <Link to="/login" className="font-medium text-primary hover:underline">
+          <Link
+            to="/login"
+            className="font-medium text-primary hover:underline"
+          >
             Sign in
           </Link>
         </p>

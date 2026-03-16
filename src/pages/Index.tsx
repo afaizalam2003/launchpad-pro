@@ -4,6 +4,7 @@ import Hero from "@/components/landing/Hero";
 import LogosStrip from "@/components/landing/LogosStrip";
 import Features from "@/components/landing/Features";
 import Comparison from "@/components/landing/Comparison";
+import TemplatesSection from "@/components/landing/TemplatesSection";
 import Pricing from "@/components/landing/Pricing";
 import Testimonials from "@/components/landing/Testimonials";
 import FinalCTA from "@/components/landing/FinalCTA";
@@ -22,6 +23,7 @@ const Index = () => {
       <LogosStrip />
       <Features />
       <Comparison />
+      <TemplatesSection />
       <Pricing />
       <Testimonials />
       <FinalCTA />

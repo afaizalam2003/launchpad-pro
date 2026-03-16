@@ -8,6 +8,7 @@ import Index from "./pages/Index.tsx";
 import Dashboard from "./pages/Dashboard.tsx";
 import Billing from "./pages/Billing.tsx";
 import Settings from "./pages/Settings.tsx";
+import Templates from "./pages/Templates.tsx";
 import Docs from "./pages/Docs.tsx";
 import PublicDocs from "./pages/PublicDocs.tsx";
 import Login from "./pages/Login.tsx";
@@ -30,6 +31,7 @@ const App = () => (
           <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
           <Route path="/dashboard/billing" element={<ProtectedRoute><Billing /></ProtectedRoute>} />
           <Route path="/dashboard/settings" element={<ProtectedRoute><Settings /></ProtectedRoute>} />
+          <Route path="/dashboard/templates" element={<ProtectedRoute><Templates /></ProtectedRoute>} />
           <Route path="/dashboard/docs" element={<ProtectedRoute><Docs /></ProtectedRoute>} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
